@@ -1,0 +1,30 @@
+*{
+    font-family: Comic Sans MS;
+
+    /*Activar esto para divertirse*/
+    /* font-family: wingdings; */
+}
+
+#titulo{
+    padding: 50px;
+    background-color: #E9ECEF;
+    margin-bottom: 30px;
+}
+
+
+/*targetas*/
+#app > div{    
+    display: flex;
+    justify-content: center;
+    .card{           
+        width:30vw;
+    }
+
+    /*estilos para movil*/
+    @media(max-width:500px){
+        flex-direction: column;   
+        .card{
+            width:100vw;
+        }
+    }
+}
