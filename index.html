@@ -7,34 +7,55 @@
         <meta name="author" content="">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- TODO: Cargar CSS Bootstrap 5 (no es necesario el JS) -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="estilos.css" rel="stylesheet" type="text/css">
     </head>
 
     <body>
 
-        <h1 id="autor">Autor: TU NOMBRE AQUÍ</h1>
+      <h1 id="autor">Autor: SANTIAGO GIRALDO HINCAPIE</h1>       
 
-        <!-- https://vuejs.org/guide/introduction.html -->
-        <div id="app">
-            <!--
-                 TODO: Aplicación Vue 3. Ver archivo ./js/script.js
-               - Mostrar el título de la colección dentro de un componente de Bootstrap 5. 
-                 En su interior habrá un <h1> con id "title" que mostrará el título de la colección.
-               - Para cada item: (https://vuejs.org/guide/essentials/list.html)
-                 - Crear un componente item-data
-            -->
+      <!-- https://vuejs.org/v2/guide/index.html -->
+      <div id="app">
+          <!--
+               TODO: Mostrar datos del objeto collection. Ver archivo ./js/script.js
+             - Cargar la librería de VueJS y el script ./js/script.js al final de la etiqueta <body>
+             - Cargar el CSS de Bootstrap (no es necesario el JS)
+             - Mostrar el título de la colección dentro de un componente Jumbotron de Bootstrap https://getbootstrap.com/docs/4.0/components/jumbotron/. En su interior habrá un <h1> con id "title" que mostrará el título de la colección
+             - Para cada item: (https://vuejs.org/v2/guide/index.html#Conditionals-and-Loops)
+               - Crear un componente card de Bootstrap (https://getbootstrap.com/docs/4.0/components/card/)
+               - Mostrar un enlace de tipo botón a la propiedad "href" del item con el texto "Ver"
+               - Mostrar cada uno de los elementos del vector "data" en una lista de definición <dl>. Para cada elemento del vector "data":
+                 - El término <dt> será la propiedad "prompt"
+                 - La definición <dd> será la propiedad "value"
+          -->
+          <h1 id="titulo" class="display-4" v-text="col.title"></h1>                
+          <div class="jumbotron">                
 
-            <!-- TODO: Mostrar el título de la colección dentro de un contenedor de Bootstrap 5 -->
-            
+              <div v-for="item in col.collection.items" class="card">                    
+                  <div class="card-body ">
+                    <h5 class="card-title">Name</h5>
+                    <p class="card-text">{{item.data[0].value}}</p>
 
-            <!-- TODO: Iterar sobre los items y mostrar cada uno usando el componente item-data -->
-            
+                    <h5 class="card-title">Desciption</h5>
+                    <p class="card-text">{{item.data[1].value}}</p>
 
-        </div>
+                    <h5 class="card-title">Director</h5>
+                    <p class="card-text">{{item.data[2].value}}</p>
 
-        <!-- TODO: Cargar librería Vue 3 y archivo js/script.js -->
+                    <h5 class="card-title">Release Date</h5>
+                    <p class="card-text">{{item.data[3].value}}</p>
+
+                    <a v-bind:href="item.href" target="_blank" class="btn btn-primary">Ver</a>
+                  </div>
+              </div>
+
+          </div>
+         
+      </div>
+      <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+      <script src="js/script.js"></script>
         
-
     </body>
 
 </html>
