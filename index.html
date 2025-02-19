@@ -7,8 +7,7 @@
         <meta name="author" content="">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link href="estilos.css" rel="stylesheet" type="text/css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     </head>
 
     <body>
@@ -29,10 +28,10 @@
                  - El término <dt> será la propiedad "prompt"
                  - La definición <dd> será la propiedad "value"
           -->
-          <h1 id="titulo" class="display-4" v-text="col.title"></h1>                
+          <h1 id="titulo" class="display-4">{{ col.title }}</h1>                
           <div class="jumbotron">                
 
-              <div v-for="item in col.collection.items" class="card">                    
+              <!-- <div v-for="item in col.collection.items" class="card">                    
                   <div class="card-body ">
                     <h5 class="card-title">Name</h5>
                     <p class="card-text" v-text="item.data[0].value">{{item.data[0].value}}</p>
@@ -48,14 +47,13 @@
 
                     <a v-bind:href="item.href" target="_blank" class="btn btn-primary">Ver</a>
                   </div>
-              </div>
+              </div> -->
 
           </div>
          
       </div>
       <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-      <script src="js/script.js"></script>
-        
+      <script type="module" src="js/script.js"></script>
     </body>
 
 </html>

@@ -1,3 +1,5 @@
+const { createApp, defineComponent, reactive } = Vue;
+
 // Sample data
 const server_data = {
     collection: {
