@@ -1,9 +1,6 @@
 const { createApp, defineComponent, reactive, ref } = Vue;
 
-const editar = ref(true);
-function toggleEditFormVisibility(){
-    editar.value = !editar.value;
-}
+
 
 // Sample data
 const server_data = {
@@ -58,12 +55,12 @@ const EditForm = defineComponent({
 
 // Componente item-data
 const ItemData = defineComponent({
-    props: {
+    props: {    
         item: {
             type: Object,
             required: true            
-        }
-    },
+        }        
+    },    
     template: `
         <div>
             <h3>{{ item.data.find(d => d.name === 'name').value }}</h3>
@@ -72,7 +69,7 @@ const ItemData = defineComponent({
             <p><strong>Release Date:</strong> {{ item.data.find(d => d.name === 'datePublished').value }}</p>
             <a :href="item.href" target="_blank" class="btn btn-primary">Ver</a>
             <span style="margin-right:10px;"></span>
-            <a @click="toggleEditFormVisibility()" class="btn btn-secondary">Editar</a>
+            <button @click="toggleEditFormVisibility" class="btn btn-secondary">Editar</button>
         </div>
     `    
     //el span es para que haya espacio entre los botones
@@ -82,6 +79,11 @@ const ItemData = defineComponent({
 const app = createApp({
     setup() {
         const col = reactive(server_data.collection);
+
+        const editar = ref(true);
+        function toggleEditFormVisibility(){
+        editar.value = !editar.value;
+        }
 
         return {
             col,
