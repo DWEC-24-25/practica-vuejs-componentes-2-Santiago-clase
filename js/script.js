@@ -1,4 +1,9 @@
-const { createApp, defineComponent, reactive } = Vue;
+const { createApp, defineComponent, reactive, ref } = Vue;
+
+const editar = ref(true);
+function toggleEditFormVisibility(){
+    editar.value = !editar.value;
+}
 
 // Sample data
 const server_data = {
@@ -44,7 +49,9 @@ const EditForm = defineComponent({
     template: `
         <div>
             <h2>Edit Form</h2>
-            <!-- Aquí iría el formulario de edición -->
+
+
+            <button @click="toggleEditFormVisibility" class="btn btn-primary">Cerrar</button>
         </div>
     `
 });
@@ -54,7 +61,7 @@ const ItemData = defineComponent({
     props: {
         item: {
             type: Object,
-            required: true
+            required: true            
         }
     },
     template: `
@@ -63,9 +70,12 @@ const ItemData = defineComponent({
             <p>{{ item.data.find(d => d.name === 'description').value }}</p>
             <p><strong>Director:</strong> {{ item.data.find(d => d.name === 'director').value }}</p>
             <p><strong>Release Date:</strong> {{ item.data.find(d => d.name === 'datePublished').value }}</p>
-            <a :href="item.href" target="_blank">More Info</a>
+            <a :href="item.href" target="_blank" class="btn btn-primary">Ver</a>
+            <span style="margin-right:10px;"></span>
+            <a @click="toggleEditFormVisibility()" class="btn btn-secondary">Editar</a>
         </div>
-    `
+    `    
+    //el span es para que haya espacio entre los botones
 });
 
 // Crear la aplicación Vue
@@ -74,7 +84,9 @@ const app = createApp({
         const col = reactive(server_data.collection);
 
         return {
-            col
+            col,
+            editar,
+            toggleEditFormVisibility
         };
     }
 });
