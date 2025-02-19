@@ -31,23 +31,29 @@
           <h1 id="titulo" class="display-4">{{ col.title }}</h1>                
           <div class="jumbotron">                
 
-              <!-- <div v-for="item in col.collection.items" class="card">                    
-                  <div class="card-body ">
-                    <h5 class="card-title">Name</h5>
-                    <p class="card-text" v-text="item.data[0].value">{{item.data[0].value}}</p>
+            <div v-for="item in col.items" :key="item.href" class="card">
+              <div class="card-body">
+                  <item-data :item="item"></item-data>
+              </div>
+            </div>
 
-                    <h5 class="card-title">Desciption</h5>
-                    <p class="card-text">{{item.data[1].value}}</p>
+            <!-- <div v-for="item in col.collection.items" class="card">                    
+                <div class="card-body ">
+                  <h5 class="card-title">Name</h5>
+                  <p class="card-text" v-text="item.data[0].value">{{item.data[0].value}}</p>
 
-                    <h5 class="card-title">Director</h5>
-                    <p class="card-text">{{item.data[2].value}}</p>
+                  <h5 class="card-title">Desciption</h5>
+                  <p class="card-text">{{item.data[1].value}}</p>
 
-                    <h5 class="card-title">Release Date</h5>
-                    <p class="card-text">{{item.data[3].value}}</p>
+                  <h5 class="card-title">Director</h5>
+                  <p class="card-text">{{item.data[2].value}}</p>
 
-                    <a v-bind:href="item.href" target="_blank" class="btn btn-primary">Ver</a>
-                  </div>
-              </div> -->
+                  <h5 class="card-title">Release Date</h5>
+                  <p class="card-text">{{item.data[3].value}}</p>
+
+                  <a v-bind:href="item.href" target="_blank" class="btn btn-primary">Ver</a>
+                </div>
+            </div> -->
 
           </div>
          
