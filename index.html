@@ -32,15 +32,8 @@
           <h1 id="titulo" class="display-4">{{ col.title }}</h1>                
           <div class="jumbotron">                
 
-            <div v-for="item in col.items" :key="item.href" class="card">
-              <!--Se mostrara carta normal-->
-              <div class="card-body" v-if="editar">
-                <item-data :item="item"></item-data>
-              </div>
-              <!--Formulario para editar-->
-              <div class="card-body" v-else>
-                <edit-form></edit-form>
-              </div>
+            <div v-for="item in col.items" :key="item.href" class="card">                            
+              <item-data :item="item"></item-data>              
             </div>           
 
           </div>

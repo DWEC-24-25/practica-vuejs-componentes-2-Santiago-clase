@@ -43,6 +43,22 @@ const server_data = {
 
 // Componente edit-form
 const EditForm = defineComponent({
+    props: {    
+        item: {
+            type: Object,
+            required: true            
+        }        
+    },   
+    data(){
+        return{
+            editar: false
+        }
+    },
+    methods:{
+        toggleEditFormVisibility(){
+            this.editar = !this.editar;
+        }
+    }, 
     template: `
         <div>
             <h2>Edit Form</h2>
@@ -54,7 +70,8 @@ const EditForm = defineComponent({
             <input type="text" value="">
             <h3 class="card-title">fecha de creación</h3>  
             <input type="date" value="">
-            <button @click="toggleEditFormVisibility" class="btn btn-primary">Cerrar</button>
+            <br/><br/>
+            <button @click="toggleEditFormVisibility()" class="btn btn-primary">Cerrar</button>
         </div>
     `
 });
@@ -66,16 +83,29 @@ const ItemData = defineComponent({
             type: Object,
             required: true            
         }        
+    },   
+    data(){
+        return{
+            editar: false
+        }
+    },
+    methods:{
+        toggleEditFormVisibility(){
+            this.editar = !this.editar;
+        }
     },    
     template: `
-        <div>            
+        <div v-if="!editar">            
             <h3>{{ item.data.find(d => d.name === 'name').value }}</h3>            
             <p>{{ item.data.find(d => d.name === 'description').value }}</p>
             <p><strong>Director:</strong> {{ item.data.find(d => d.name === 'director').value }}</p>
             <p><strong>Release Date:</strong> {{ item.data.find(d => d.name === 'datePublished').value }}</p>
             <a :href="item.href" target="_blank" class="btn btn-primary">Ver</a>
             <span style="margin-right:10px;"></span>
-            <button @click="toggleEditFormVisibility" class="btn btn-secondary">Editar</button>
+            <button @click="toggleEditFormVisibility()" class="btn btn-secondary">Editar</button>
+        </div>
+        <div v-else>            
+            <edit-form></edit-form>
         </div>
     `    
     //el span es para que haya espacio entre los botones
@@ -84,17 +114,9 @@ const ItemData = defineComponent({
 // Crear la aplicación Vue
 const app = createApp({
     setup() {
-        const col = reactive(server_data.collection);
-
-        const editar = ref(true);
-        function toggleEditFormVisibility(){
-        editar.value = !editar.value;
-        }
-
+        const col = reactive(server_data.collection);            
         return {
-            col,
-            editar,
-            toggleEditFormVisibility
+            col           
         };
     }
 });
