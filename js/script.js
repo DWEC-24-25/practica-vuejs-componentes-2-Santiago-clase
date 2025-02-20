@@ -46,8 +46,14 @@ const EditForm = defineComponent({
     template: `
         <div>
             <h2>Edit Form</h2>
-
-
+            <h3 class="card-title">Nombre</h3> 
+            <input type="text" value=""> 
+            <h3 class="card-title">Descripción</h3>  
+            <textarea rows="8"></textarea>
+            <h3 class="card-title">Director</h3>  
+            <input type="text" value="">
+            <h3 class="card-title">fecha de creación</h3>  
+            <input type="date" value="">
             <button @click="toggleEditFormVisibility" class="btn btn-primary">Cerrar</button>
         </div>
     `
@@ -62,8 +68,8 @@ const ItemData = defineComponent({
         }        
     },    
     template: `
-        <div>
-            <h3>{{ item.data.find(d => d.name === 'name').value }}</h3>
+        <div>            
+            <h3>{{ item.data.find(d => d.name === 'name').value }}</h3>            
             <p>{{ item.data.find(d => d.name === 'description').value }}</p>
             <p><strong>Director:</strong> {{ item.data.find(d => d.name === 'director').value }}</p>
             <p><strong>Release Date:</strong> {{ item.data.find(d => d.name === 'datePublished').value }}</p>
