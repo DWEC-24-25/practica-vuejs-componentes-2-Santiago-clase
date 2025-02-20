@@ -43,27 +43,12 @@ const server_data = {
 
 // Componente edit-form
 const EditForm = defineComponent({
-    props: {    
-        item: {
-            type: Object,
-            required: true            
-        }        
-    },   
-    data(){
-        return{
-            editar: false
-        }
-    },
-    methods:{
-        toggleEditFormVisibility(){
-            this.editar = !this.editar;
-        }
-    }, 
+
     template: `
         <div>
             <h2>Edit Form</h2>
             <h3 class="card-title">Nombre</h3> 
-            <input type="text" value=""> 
+            <input type="text" v-model="nombre"> 
             <h3 class="card-title">Descripción</h3>  
             <textarea rows="8"></textarea>
             <h3 class="card-title">Director</h3>  
@@ -71,7 +56,7 @@ const EditForm = defineComponent({
             <h3 class="card-title">fecha de creación</h3>  
             <input type="date" value="">
             <br/><br/>
-            <button @click="toggleEditFormVisibility()" class="btn btn-primary">Cerrar</button>
+            <button @click="$emit('toggleEditFormVisibility()')" class="btn btn-primary">Cerrar</button>
         </div>
     `
 });
@@ -105,7 +90,7 @@ const ItemData = defineComponent({
             <button @click="toggleEditFormVisibility()" class="btn btn-secondary">Editar</button>
         </div>
         <div v-else>            
-            <edit-form></edit-form>
+            <edit-form :item="item"></edit-form>
         </div>
     `    
     //el span es para que haya espacio entre los botones
