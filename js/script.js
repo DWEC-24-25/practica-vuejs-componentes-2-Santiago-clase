@@ -1,3 +1,7 @@
+const { createApp, defineComponent, reactive, ref } = Vue;
+
+
+
 // Sample data
 const server_data = {
     collection: {
@@ -39,40 +43,95 @@ const server_data = {
 
 // Componente edit-form
 const EditForm = defineComponent({
+    props: {    
+        item: {
+            type: Object,
+            required: true            
+        }        
+    },     
+    emits: ['update-item'],          
+    data() {
+        return {  
+            editar: true,
+            itemData: JSON.parse(JSON.stringify(this.item))           
+        };
+    },
+    methods: {
+        saveChanges() {      
+            this.$emit('update-item', this.itemData);                  
+            this.editar = !this.editar;            
+        }
+    },
     template: `
-        <div>
+        <div v-if="editar">
             <h2>Edit Form</h2>
-            <!-- Aquí iría el formulario de edición -->
+            <h3 class="card-title">Nombre</h3>
+            <input type="text" v-model="item.data.find(d => d.name === 'name').value"> 
+
+            <h3 class="card-title">Descripción</h3>
+            <textarea rows="8" cols="40" v-model="item.data.find(d => d.name === 'description').value"></textarea>
+
+            <h3 class="card-title">Director</h3>
+            <input type="text" v-model="item.data.find(d => d.name === 'director').value">
+
+            <h3 class="card-title">Fecha de creación</h3>
+            <input type="date" v-model="item.data.find(d => d.name === 'datePublished').value">
+
+            <br/><br/>
+            <button @click="saveChanges()" class="btn btn-primary">Cerrar</button>            
+        </div>
+        <div v-else>
+            <item-data :item="itemData"></item-data>
         </div>
     `
 });
 
 // Componente item-data
 const ItemData = defineComponent({
-    props: {
+    props: {    
         item: {
             type: Object,
-            required: true
+            required: true            
+        }        
+    },   
+    emits: ['update-item'],
+    data(){
+        return{
+            editar: false
         }
     },
+    methods:{
+        toggleEditFormVisibility(){
+            this.editar = !this.editar;
+        },
+        updateItem(updatedItem) {
+            this.$emit('update-item', updatedItem);
+            this.toggleEditFormVisibility();
+        }
+    },    
     template: `
-        <div>
-            <h3>{{ item.data.find(d => d.name === 'name').value }}</h3>
+        <div v-if="!editar">            
+            <h3>{{ item.data.find(d => d.name === 'name').value }}</h3>            
             <p>{{ item.data.find(d => d.name === 'description').value }}</p>
             <p><strong>Director:</strong> {{ item.data.find(d => d.name === 'director').value }}</p>
             <p><strong>Release Date:</strong> {{ item.data.find(d => d.name === 'datePublished').value }}</p>
-            <a :href="item.href" target="_blank">More Info</a>
+            <a :href="item.href" target="_blank" class="btn btn-primary">Ver</a>
+            <span style="margin-right:10px;"></span>
+            <button @click="toggleEditFormVisibility" class="btn btn-secondary">Editar</button>
         </div>
-    `
+        <div v-else>            
+            <edit-form :item="item" @update-item="updateItem"></edit-form>
+        </div>
+    `    
+    //el span es para que haya espacio entre los botones
 });
 
 // Crear la aplicación Vue
 const app = createApp({
     setup() {
-        const col = reactive(server_data.collection);
-
+        const col = reactive(server_data.collection);            
         return {
-            col
+            col           
         };
     }
 });

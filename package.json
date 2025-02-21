@@ -10,7 +10,7 @@
   "author": "Pedro Prieto",
   "dependencies": {},
   "devDependencies": {
-    "chromedriver": "^96.0.0",
+    "chromedriver": "^133.0.1",
     "nightwatch": "^1.7.13",
     "serve-handler": "^6.1.3"
   }
