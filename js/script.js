@@ -49,7 +49,7 @@ const EditForm = defineComponent({
             required: true            
         }        
     }, 
-    emits: ['closeForm', 'update-item'],
+    emits: ['update-item'],
     data() {
         return {
             itemData: this.item.data.reduce((acc, field) => {
@@ -62,8 +62,7 @@ const EditForm = defineComponent({
     },
     methods: {
         saveChanges() {
-            this.$emit('update-item', this.itemData);
-            this.$emit('closeForm');
+            this.$emit('update-item', this.itemData);            
             this.editar = !this.editar;
         }
     },
@@ -83,7 +82,7 @@ const EditForm = defineComponent({
             <input type="date" v-model="itemData.datePublished">
 
             <br/><br/>
-            <button @click="saveChanges" class="btn btn-primary">Guardar</button>            
+            <button @click="saveChanges()" class="btn btn-primary">Cerrar</button>            
         </div>
         <div v-else>
             <item-data :item="item"></item-data>
@@ -117,7 +116,7 @@ const ItemData = defineComponent({
             <p><strong>Release Date:</strong> {{ item.data.find(d => d.name === 'datePublished').value }}</p>
             <a :href="item.href" target="_blank" class="btn btn-primary">Ver</a>
             <span style="margin-right:10px;"></span>
-            <button @click="toggleEditFormVisibility()" class="btn btn-secondary">Editar</button>
+            <button @click="toggleEditFormVisibility" class="btn btn-secondary">Editar</button>
         </div>
         <div v-else>            
             <edit-form :item="item"></edit-form>
