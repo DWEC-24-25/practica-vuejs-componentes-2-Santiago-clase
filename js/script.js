@@ -69,7 +69,7 @@ const EditForm = defineComponent({
             <input type="text" v-model="item.data.find(d => d.name === 'name').value"> 
 
             <h3 class="card-title">Descripción</h3>
-            <textarea rows="8" v-model="item.data.find(d => d.name === 'description').value"></textarea>
+            <textarea rows="8" cols="40" v-model="item.data.find(d => d.name === 'description').value"></textarea>
 
             <h3 class="card-title">Director</h3>
             <input type="text" v-model="item.data.find(d => d.name === 'director').value">
