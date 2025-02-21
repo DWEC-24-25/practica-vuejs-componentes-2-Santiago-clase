@@ -43,20 +43,50 @@ const server_data = {
 
 // Componente edit-form
 const EditForm = defineComponent({
-
+    props: {    
+        item: {
+            type: Object,
+            required: true            
+        }        
+    }, 
+    emits: ['closeForm', 'update-item'],
+    data() {
+        return {
+            itemData: this.item.data.reduce((acc, field) => {
+                acc[field.name] = field.value;
+                return acc;
+            }, {}),
+            editar: ref(true)
+            
+        };
+    },
+    methods: {
+        saveChanges() {
+            this.$emit('update-item', this.itemData);
+            this.$emit('closeForm');
+            this.editar = !this.editar;
+        }
+    },
     template: `
-        <div>
+        <div v-if="editar">
             <h2>Edit Form</h2>
-            <h3 class="card-title">Nombre</h3> 
-            <input type="text" v-model="nombre"> 
-            <h3 class="card-title">Descripción</h3>  
-            <textarea rows="8"></textarea>
-            <h3 class="card-title">Director</h3>  
-            <input type="text" value="">
-            <h3 class="card-title">fecha de creación</h3>  
-            <input type="date" value="">
+            <h3 class="card-title">Nombre</h3>
+            <input type="text" v-model="itemData.name"> 
+
+            <h3 class="card-title">Descripción</h3>
+            <textarea rows="8" v-model="itemData.description"></textarea>
+
+            <h3 class="card-title">Director</h3>
+            <input type="text" v-model="itemData.director">
+
+            <h3 class="card-title">Fecha de creación</h3>
+            <input type="date" v-model="itemData.datePublished">
+
             <br/><br/>
-            <button @click="$emit('toggleEditFormVisibility()')" class="btn btn-primary">Cerrar</button>
+            <button @click="saveChanges" class="btn btn-primary">Guardar</button>            
+        </div>
+        <div v-else>
+            <item-data :item="item"></item-data>
         </div>
     `
 });
@@ -71,7 +101,7 @@ const ItemData = defineComponent({
     },   
     data(){
         return{
-            editar: false
+            editar: ref(false)
         }
     },
     methods:{
